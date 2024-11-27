@@ -1,7 +1,14 @@
 <script setup lang="ts">
+<<<<<<< HEAD
 import { RouterView, useRoute } from 'vue-router';
 import SideMenu from './components/SideMenu.vue';
 import { useAuthStore } from './stores/auth';
+=======
+import { RouterView } from 'vue-router'
+import { useRoute } from 'vue-router'
+import { useAuthStore } from './stores/auth'
+import SideMenu from './components/SideMenu.vue'
+>>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
 
 const route = useRoute()
 const authStore = useAuthStore()
@@ -20,7 +27,11 @@ const authStore = useAuthStore()
       <el-header>
         <h2>订单管理系统</h2>
         <div class="header-right">
+<<<<<<< HEAD
           <span class="username">{{ authStore.userInfo?.Name }}</span>
+=======
+          <span class="username">{{ authStore.userInfo?.name }}</span>
+>>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
           <el-button type="text" @click="authStore.logout">退出登录</el-button>
         </div>
       </el-header>

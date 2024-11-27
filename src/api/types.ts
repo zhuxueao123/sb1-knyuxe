@@ -1,8 +1,14 @@
 // 通用响应类型
 export interface ApiResponse<T> {
+<<<<<<< HEAD
   State: number
   ErrorMsg: string
   Data: T
+=======
+  code: number
+  msg: string
+  data: T
+>>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
 }
 
 // 分页参数
@@ -23,6 +29,7 @@ export interface LoginParams {
   code: string
 }
 
+<<<<<<< HEAD
 export interface UserInfo {
   Name: string
   Level: string | null
@@ -33,6 +40,14 @@ export interface UserInfo {
 export interface LoginResult {
   token: string
   existUser: UserInfo
+=======
+export interface LoginResult {
+  token: string
+  userInfo: {
+    phone: string
+    name: string
+  }
+>>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
 }
 
 // 订单相关类型

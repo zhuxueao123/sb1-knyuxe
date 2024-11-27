@@ -1,6 +1,11 @@
 <script setup lang="ts">
+<<<<<<< HEAD
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+=======
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+>>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
 
 interface Order {
   id: string
@@ -34,6 +39,7 @@ const tableData = ref<Order[]>([
 const handleView = (row: Order) => {
   router.push(`/orders/${row.id}`)
 }
+<<<<<<< HEAD
 
 const filter = ref({
   orderNumber: '',
@@ -47,6 +53,8 @@ const filter = ref({
 const applyFilter = () => {
   // 这里可以添加筛选逻辑
 }
+=======
+>>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
 </script>
 
 <template>
@@ -55,6 +63,7 @@ const applyFilter = () => {
       <template #header>
         <div class="card-header">
           <span>订单列表</span>
+<<<<<<< HEAD
           <el-form :inline="true" :model="filter" class="filter-form">
             <el-form-item label="订单号">
               <el-input v-model="filter.orderNumber" placeholder="请输入订单号"></el-input>
@@ -84,6 +93,8 @@ const applyFilter = () => {
               <el-button type="primary" @click="applyFilter">查询</el-button>
             </el-form-item>
           </el-form>
+=======
+>>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
         </div>
       </template>
       
@@ -95,6 +106,7 @@ const applyFilter = () => {
             ¥{{ scope.row.amount.toFixed(2) }}
           </template>
         </el-table-column>
+<<<<<<< HEAD
         <el-table-column prop="orderStatus" label="订单状态">
           <template #default="scope">
             <el-tag :type="scope.row.orderStatus === 30 ? 'success' : 'warning'">
@@ -103,6 +115,16 @@ const applyFilter = () => {
           </template>
         </el-table-column>
         <el-table-column prop="orderDate" label="创建时间" />
+=======
+        <el-table-column prop="status" label="订单状态">
+          <template #default="scope">
+            <el-tag :type="scope.row.status === '已付款' ? 'success' : 'warning'">
+              {{ scope.row.status }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="createTime" label="创建时间" />
+>>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
         <el-table-column label="操作" width="100">
           <template #default="scope">
             <el-button size="small" @click="handleView(scope.row)">查看</el-button>
@@ -123,8 +145,11 @@ const applyFilter = () => {
   justify-content: space-between;
   align-items: center;
 }
+<<<<<<< HEAD
 
 .filter-form {
   margin-bottom: 20px;
 }
+=======
+>>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
 </style>

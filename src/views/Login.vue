@@ -1,4 +1,5 @@
 <script setup lang="ts">
+<<<<<<< HEAD
 import { ElMessage } from 'element-plus';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -6,10 +7,20 @@ import { useAuthStore } from '../stores/auth';
 
 const router = useRouter();
 const authStore = useAuthStore();
+=======
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
+import { ElMessage } from 'element-plus'
+
+const router = useRouter()
+const authStore = useAuthStore()
+>>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
 
 const loginForm = ref({
   phone: '',
   code: ''
+<<<<<<< HEAD
 });
 
 const loading = ref(false);
@@ -67,6 +78,66 @@ const handleLogin = async () => {
     loading.value = false;
   }
 };
+=======
+})
+
+const loading = ref(false)
+const countdown = ref(0)
+const timer = ref<NodeJS.Timeout | null>(null)
+
+const validatePhone = (phone: string) => {
+  return /^1[3-9]\d{9}$/.test(phone)
+}
+
+const handleSendCode = () => {
+  if (!loginForm.value.phone) {
+    ElMessage.warning('请输入手机号')
+    return
+  }
+
+  if (!validatePhone(loginForm.value.phone)) {
+    ElMessage.warning('请输入正确的手机号')
+    return
+  }
+
+  countdown.value = 60
+  timer.value = setInterval(() => {
+    countdown.value--
+    if (countdown.value <= 0 && timer.value) {
+      clearInterval(timer.value)
+      timer.value = null
+    }
+  }, 1000)
+
+  // 模拟发送验证码
+  ElMessage.success(`验证码已发送，测试验证码：123456`)
+}
+
+const handleLogin = async () => {
+  if (!loginForm.value.phone || !loginForm.value.code) {
+    ElMessage.warning('请输入手机号和验证码')
+    return
+  }
+
+  if (!validatePhone(loginForm.value.phone)) {
+    ElMessage.warning('请输入正确的手机号')
+    return
+  }
+
+  loading.value = true
+  try {
+    const success = authStore.login(loginForm.value.phone, loginForm.value.code)
+    if (success) {
+      ElMessage.success('登录成功')
+      router.push('/orders')
+    } else {
+      ElMessage.error('验证码错误')
+    }
+  } finally {
+    loading.value = false
+  }
+}
+>>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
 </script>
 
 <template>
@@ -117,7 +188,12 @@ const handleLogin = async () => {
       </el-form>
       
       <div class="login-tips">
+<<<<<<< HEAD
         <p>请输入手机号获取验证码登录</p>
+=======
+        <p>测试手机号：13800138000</p>
+        <p>测试验证码：123456</p>
+>>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
       </div>
     </el-card>
   </div>
