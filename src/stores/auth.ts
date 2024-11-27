@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { login as apiLogin } from '../api/auth'
-<<<<<<< HEAD
 import type { UserInfo } from '../api/types'
 import router from '../router'
 
@@ -21,20 +20,11 @@ export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = ref(initialState.isAuthenticated)
   const token = ref(initialState.token)
   const userInfo = ref<UserInfo | null>(initialState.userInfo)
-=======
-import type { LoginResult } from '../api/types'
-
-export const useAuthStore = defineStore('auth', () => {
-  const isAuthenticated = ref(false)
-  const token = ref<string>('')
-  const userInfo = ref<LoginResult['userInfo'] | null>(null)
->>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
 
   const login = async (phone: string, code: string) => {
     try {
       const result = await apiLogin({ phone, code })
       token.value = result.token
-<<<<<<< HEAD
       userInfo.value = result.existUser
       isAuthenticated.value = true
       
@@ -42,10 +32,6 @@ export const useAuthStore = defineStore('auth', () => {
       localStorage.setItem('token', result.token)
       localStorage.setItem('userInfo', JSON.stringify(result.existUser))
       
-=======
-      userInfo.value = result.userInfo
-      isAuthenticated.value = true
->>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
       return true
     } catch (error) {
       return false
@@ -56,15 +42,12 @@ export const useAuthStore = defineStore('auth', () => {
     isAuthenticated.value = false
     token.value = ''
     userInfo.value = null
-<<<<<<< HEAD
     
     // 清除 localStorage
     localStorage.removeItem('token')
     localStorage.removeItem('userInfo')
     
     router.push('/login')
-=======
->>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
   }
 
   return {

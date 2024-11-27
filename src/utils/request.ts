@@ -1,12 +1,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
-<<<<<<< HEAD
 import router from '../router'
 import { useAuthStore } from '../stores/auth'
-=======
-import { useAuthStore } from '../stores/auth'
-import router from '../router'
->>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
 
 const request = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -30,7 +25,6 @@ request.interceptors.request.use(
 // 响应拦截器
 request.interceptors.response.use(
   (response) => {
-<<<<<<< HEAD
     const { State, ErrorMsg, Data } = response.data
 
     if (State === 1) {
@@ -39,16 +33,6 @@ request.interceptors.response.use(
 
     ElMessage.error(ErrorMsg || '请求失败')
     return Promise.reject(new Error(ErrorMsg || '请求失败'))
-=======
-    const { code, msg, data } = response.data
-
-    if (code === 0) {
-      return data
-    }
-
-    ElMessage.error(msg || '请求失败')
-    return Promise.reject(new Error(msg || '请求失败'))
->>>>>>> c83094987e260725bf426f8a6d87826c43583b5b
   },
   (error) => {
     if (error.response?.status === 401) {
