@@ -4,33 +4,27 @@ import { login as apiLogin } from '../api/auth'
 import type { UserInfo } from '../api/types'
 import router from '../router'
 
-// 从 localStorage 获取初始状态
-const getStoredAuth = () => {
-  const storedToken = localStorage.getItem('token')
-  const storedUserInfo = localStorage.getItem('userInfo')
-  return {
-    token: storedToken || '',
-    userInfo: storedUserInfo ? JSON.parse(storedUserInfo) : null,
-    isAuthenticated: !!storedToken
-  }
-}
-
 export const useAuthStore = defineStore('auth', () => {
-  const initialState = getStoredAuth()
-  const isAuthenticated = ref(initialState.isAuthenticated)
-  const token = ref(initialState.token)
-  const userInfo = ref<UserInfo | null>(initialState.userInfo)
+  // 从 localStorage 获取初始状态
+  const token = ref(localStorage.getItem('token') || '')
+  const userInfo = ref<UserInfo | null>(localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')!) : null)
+  const isAuthenticated = ref(!!token.value)
 
   const login = async (phone: string, code: string) => {
     try {
-      const result = await apiLogin({ phone, code })
-      token.value = result.token
-      userInfo.value = result.existUser
+      const response = await apiLogin({ phone, code })
+      debugger
+      const { accessToken: newToken, existUser } = response
+      debugger
+      
+      // 更新状态
+      token.value = newToken
+      userInfo.value = existUser
       isAuthenticated.value = true
       
       // 保存到 localStorage
-      localStorage.setItem('token', result.token)
-      localStorage.setItem('userInfo', JSON.stringify(result.existUser))
+      localStorage.setItem('token', newToken)
+      localStorage.setItem('userInfo', JSON.stringify(existUser))
       
       return true
     } catch (error) {
@@ -39,9 +33,10 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const logout = () => {
-    isAuthenticated.value = false
+    // 清除状态
     token.value = ''
     userInfo.value = null
+    isAuthenticated.value = false
     
     // 清除 localStorage
     localStorage.removeItem('token')
@@ -51,9 +46,9 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   return {
-    isAuthenticated,
     token,
     userInfo,
+    isAuthenticated,
     login,
     logout
   }

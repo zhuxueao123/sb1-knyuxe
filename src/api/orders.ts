@@ -1,15 +1,20 @@
 import request from '../utils/request'
 import type { ApiResponse, Order } from './types'
 
-export const getOrders = (params?: {
-  page?: number
-  pageSize?: number
+export interface OrderQueryParams {
+  pageIndex: number
+  pageSize: number
+  orderNo?: string
   status?: string
-}) => {
-  return request.get<ApiResponse<{
+  startTime?: string
+  endTime?: string
+}
+
+export const getOrders = (params: OrderQueryParams) => {
+  return request.post<ApiResponse<{
     list: Order[]
     total: number
-  }>>('/Customer/OrderList', { params })
+  }>>('/Customer/OrderList', params)
 }
 
 export const getOrderDetail = (id: string) => {

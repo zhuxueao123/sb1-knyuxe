@@ -57,6 +57,7 @@ const handleLogin = async () => {
   loading.value = true;
   try {
     const success = await authStore.login(loginForm.value.phone, loginForm.value.code);
+    debugger
     if (success) {
       ElMessage.success('登录成功');
       router.push('/orders');

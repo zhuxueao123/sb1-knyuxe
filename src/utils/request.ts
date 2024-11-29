@@ -3,6 +3,7 @@ import { ElMessage } from 'element-plus'
 import router from '../router'
 import { useAuthStore } from '../stores/auth'
 
+// 创建请求实例
 const request = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: 10000,
@@ -11,9 +12,9 @@ const request = axios.create({
 // 请求拦截器
 request.interceptors.request.use(
   (config) => {
-    const authStore = useAuthStore()
-    if (authStore.token) {
-      config.headers.Authorization = `Bearer ${authStore.token}`
+    const token = localStorage.getItem('token')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
     }
     return config
   },
